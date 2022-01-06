@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>This is for submit data into student tabel</h1>
+
+<div>
+<form method="POST" action="{% url 'student_save' %}">{% csrf_token %}
+    <input type="text" name="student_name"><br>
+<br>
+    <input type="text" name="student_roll"><br>
+<br>
+
+    <button type="submit">click for save</button>
+
+</form>
+</div>
+
+<br>
+<br>
+<h1>This is for submit data into Result tabel</h1>
+<div>
+
+<form method="POST" action="{% url 'result_save' %}">{% csrf_token %}
+
+
+
+    <label>
+        <span class="text-bold text-primary">student_info</span>
+			<select name="student_info" aria-controls="productorder_Category" class="form-control form-control-sm text-success">
+                {% for i in f %}
+                <option value="{{i.id}}">{{i.name}}</option>
+
+                {% endfor %}
+
+			</select>
+    </label>
+<br>
+<br>
+
+    <input type="text" name="result_Status"><br>
+<br>
+
+        <button type="submit">click for save</button>
+
+
+
+
+
+</form>
+</div>
+
+
+<div>
+    <h1>to show result tabel data click on the button</h1>
+    <form action="show_data_of_result" method="POST">{% csrf_token %}
+
+        <label>
+            <span class="text-bold text-primary">result</span>
+                <select name="result_of_stu" aria-controls="productorder_Category" class="form-control form-control-sm text-success">
+                    <option value="pass">pass</option>
+                    <option value="fail">fail</option>
+                </select>
+        </label>
+
+        <button type="submit">click to show</button>
+    </form>
+
+
+</div>
+
+{{g}}
+
+
+
+{% if g %}
+
+<table class="show_t" style="width:100%" border="2px">
+  <tr>
+    <th>Name</th>
+    <th>Roll</th>
+  </tr>
+
+   {% for i in g %}
+  <tr>
+    <td>{{i.student_info.name}}</td>
+    <td>{{i.student_info.roll}}</td>
+  </tr>
+    {% endfor %}
+
+</table>
+{% endif %}
+
+</body>
+</html>
